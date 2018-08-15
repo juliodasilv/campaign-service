@@ -11,14 +11,12 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers.CalendarDeserializer;
 import com.fasterxml.jackson.databind.ser.std.CalendarSerializer;
 
 @Entity
-@JsonPropertyOrder({ "name", "idTeam", "startDate", "endDate"})
 public class Campaign extends AbstractEntity{
 
 	private static final long serialVersionUID = -645790858764812308L;

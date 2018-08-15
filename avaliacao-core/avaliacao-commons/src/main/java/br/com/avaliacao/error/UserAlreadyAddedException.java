@@ -6,12 +6,23 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * @author Julio
  */
-@ResponseStatus(HttpStatus.NOT_FOUND)
+@ResponseStatus(HttpStatus.ALREADY_REPORTED)
 public class UserAlreadyAddedException extends RuntimeException{
 
-	private static final long serialVersionUID = -2627730476614932097L;
+	private static final long serialVersionUID = 1317501303980207462L;
 
-	public UserAlreadyAddedException(String message) {
+	private String campaings;
+	
+	public UserAlreadyAddedException(String message, String campaings) {
 		super(message);
+		this.campaings = campaings;
+	}
+
+	public String getCampaings() {
+		return campaings;
+	}
+
+	public void setCampaings(String campaings) {
+		this.campaings = campaings;
 	}
 }

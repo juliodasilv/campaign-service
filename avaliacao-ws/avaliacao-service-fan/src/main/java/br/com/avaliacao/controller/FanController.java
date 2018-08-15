@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.avaliacao.model.User;
-import br.com.avaliacao.service.UserService;
+import br.com.avaliacao.service.FanService;
 
 @RestController
 @RequestMapping("v1")
 public class FanController {
 
 	@Autowired
-	private UserService userService;
+	private FanService userService;
 
 	@PostMapping(path="users")
 	public ResponseEntity<?> saveUser(@Valid @RequestBody User user){
-		return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+		return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
 	}
 
 }

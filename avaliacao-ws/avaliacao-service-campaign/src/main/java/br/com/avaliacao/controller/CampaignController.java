@@ -37,7 +37,7 @@ public class CampaignController {
 	}
 
 	@DeleteMapping(path="campaigns/{nome}")
-	public ResponseEntity<?> delete(@PathVariable("nome") Long id){
+	public ResponseEntity<?> delete(@PathVariable("id") Long id){
 		verifyIfCampaignExists(campaignService.findOne(id), id);
 		campaignService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);

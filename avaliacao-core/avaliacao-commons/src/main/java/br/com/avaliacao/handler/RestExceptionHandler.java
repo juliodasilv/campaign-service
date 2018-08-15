@@ -17,6 +17,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import br.com.avaliacao.error.ErrorDetails;
 import br.com.avaliacao.error.ResourceNotFoundDetails;
+import br.com.avaliacao.error.UserAlreadyAddedDetails;
+import br.com.avaliacao.error.UserAlreadyAddedException;
 import br.com.avaliacao.error.ValidationErrorDetails;
 
 /**
@@ -38,6 +40,20 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler{
 				.build();
 		
 		return new ResponseEntity<>(rnfDetails, HttpStatus.NOT_FOUND);
+	}
+
+	@ExceptionHandler(UserAlreadyAddedException.class)
+	public ResponseEntity<?> handleUserAlreadyAddedException(UserAlreadyAddedException uaaException){
+		UserAlreadyAddedDetails uaaDetails = UserAlreadyAddedDetails.Builder
+				.newBuilder()
+				.timestamp(new Date().getTime())
+				.status(HttpStatus.ALREADY_REPORTED.value())
+				.title("User Already Added!")
+				.detail(uaaException.getCampaings())
+				.developerMessage(uaaException.getClass().getName())
+				.build();
+		
+		return new ResponseEntity<>(uaaDetails, HttpStatus.ALREADY_REPORTED);
 	}
 
 	@Override
