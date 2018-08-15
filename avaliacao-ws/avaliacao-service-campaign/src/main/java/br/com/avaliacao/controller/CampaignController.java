@@ -1,4 +1,4 @@
-package br.com.avaliacao.endpoint;
+package br.com.avaliacao.controller;
 
 import javax.validation.Valid;
 
@@ -36,8 +36,8 @@ public class CampaignController {
 		return new ResponseEntity<>(campaignService.save(campaign), HttpStatus.CREATED);
 	}
 
-	@DeleteMapping(path="campaigns/{id}")
-	public ResponseEntity<?> delete(@PathVariable("id") Long id){
+	@DeleteMapping(path="campaigns/{nome}")
+	public ResponseEntity<?> delete(@PathVariable("nome") Long id){
 		verifyIfCampaignExists(campaignService.findOne(id), id);
 		campaignService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
