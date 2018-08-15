@@ -60,6 +60,15 @@
 			<artifactId>guava</artifactId>
 			<version>14.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.ibm.mq</groupId>
+			<artifactId>mq-jms-spring-boot-starter</artifactId>
+			<version>0.0.3</version>
+		</dependency>
 	</dependencies>
 
 </project>

@@ -15,7 +15,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers.CalendarDeserializer;
-import com.fasterxml.jackson.databind.ser.std.CalendarSerializer;
+
+import br.com.avaliacao.CalendarSerializer;
 
 @Entity
 @JsonPropertyOrder({ "name", "idTeam", "startDate", "endDate"})

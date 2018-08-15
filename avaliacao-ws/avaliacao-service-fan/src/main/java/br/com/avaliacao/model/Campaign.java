@@ -27,7 +27,7 @@ public class Campaign extends AbstractEntity{
 	@Column(unique = true)
 	private String name;
 
-	private int idTeam;
+	private Team team;
 
 	@NotNull
 	@JsonSerialize(using = CalendarSerializer.class)
@@ -65,12 +65,12 @@ public class Campaign extends AbstractEntity{
 		this.end = end;
 	}
 
-	public int getIdTeam() {
-		return idTeam;
+	public Team getTeam() {
+		return team;
 	}
 
-	public void setIdTeam(int idTeam) {
-		this.idTeam = idTeam;
+	public void setTeam(Team team) {
+		this.team = team;
 	}
 
 	public void plusDayToEndDate() {
@@ -80,7 +80,7 @@ public class Campaign extends AbstractEntity{
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return "Campaign [name=" + name + ", idTeam=" + idTeam + ", start=" + sdf.format(start.getTime()) + ", end=" + sdf.format(end.getTime()) + "]";
+		return "Campaign [name=" + name + ", team=" + team + ", start=" + sdf.format(start.getTime()) + ", end=" + sdf.format(end.getTime()) + "]";
 	}
 	
 }

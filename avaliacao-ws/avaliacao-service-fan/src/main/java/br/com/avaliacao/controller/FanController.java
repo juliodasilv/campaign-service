@@ -1,4 +1,4 @@
-package br.com.avaliacao.endpoint;
+package br.com.avaliacao.controller;
 
 import javax.validation.Valid;
 
@@ -15,7 +15,7 @@ import br.com.avaliacao.service.UserService;
 
 @RestController
 @RequestMapping("v1")
-public class TeamController {
+public class FanController {
 
 	@Autowired
 	private UserService userService;
