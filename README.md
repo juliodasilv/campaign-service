@@ -1,4 +1,4 @@
-# campaign-service
+﻿# campaign-service
 
 ## Getting Started
 
@@ -31,7 +31,7 @@ Para acesso aos dados, utilizei o spring-data.
 - Ter instalado a versão 8 do java.
 
 ## Diagrama de Arquitetura
-![alt tag](https://raw.githubusercontent.com/juliodasilv/campaign-service/master/files/mer.png)
+![alt tag](https://raw.githubusercontent.com/juliodasilv/campaign-service/master/files/architecture_diagram.jpg)
 
 ## Resumo das tecnologias utilizadas
 
