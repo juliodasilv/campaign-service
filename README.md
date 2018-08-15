@@ -40,7 +40,7 @@ Para acesso aos dados, utilizei o spring-data.
 * [Spring Security](https://spring.io/projects/spring-security) - Framework para parte de segurança da aplicação
 * [H2 Database](http://www.h2database.com/html/main.html) - Banco de dados relacional.
 * [Maven](https://maven.apache.org/) - Gerenciador de dependencias
-* [Java 8](https://www.java.com/pt_BR/download/faq/java8.xml) 
+* [Java 8](https://www.java.com/pt_BR/download/faq/java8.xml)  - Versão do Java
 
 ## Autor
 
