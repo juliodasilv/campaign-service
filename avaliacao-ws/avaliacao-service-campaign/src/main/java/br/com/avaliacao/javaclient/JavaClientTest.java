@@ -34,9 +34,9 @@ public class JavaClientTest {
 		}
 	}
 	
-	private static String encodeUsernamePassword(String user, String password){
-		String userPassword = user + ":" + password;
-		return new String(Base64.encodeBase64(userPassword.getBytes()));
-	}
+//	private static String encodeUsernamePassword(String user, String password){
+//		String userPassword = user + ":" + password;
+//		return new String(Base64.encodeBase64(userPassword.getBytes()));
+//	}
 	
 }

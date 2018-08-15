@@ -3,6 +3,7 @@ package br.com.avaliacao.model;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -14,8 +15,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers.CalendarDeserializer;
-
-import br.com.avaliacao.CalendarSerializer;
+import com.fasterxml.jackson.databind.ser.std.CalendarSerializer;
 
 @Entity
 @JsonPropertyOrder({ "name", "idTeam", "startDate", "endDate"})
@@ -24,6 +24,7 @@ public class Campaign extends AbstractEntity{
 	private static final long serialVersionUID = -645790858764812308L;
 
 	@NotEmpty
+	@Column(unique = true)
 	private String name;
 
 	private int idTeam;
