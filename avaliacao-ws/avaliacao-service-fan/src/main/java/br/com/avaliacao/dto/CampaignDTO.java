@@ -1,43 +1,39 @@
-package br.com.avaliacao.model;
+package br.com.avaliacao.dto;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotEmpty;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers.CalendarDeserializer;
-import com.fasterxml.jackson.databind.ser.std.CalendarSerializer;
 
-@Entity
-public class Campaign extends AbstractEntity{
+import br.com.avaliacao.CalendarSerializer;
 
-	private static final long serialVersionUID = -645790858764812308L;
+public class CampaignDTO{
 
-	@NotEmpty
-	@Column(unique = true)
+	@JsonIgnore
+	private Long id;
+
 	private String name;
 
-	private Team team;
+	private Long idTeam;
 
-	@NotNull
 	@JsonSerialize(using = CalendarSerializer.class)
 	@JsonDeserialize(using = CalendarDeserializer.class)
-	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar start;
 	
-	@NotNull
-	@JsonDeserialize(using = CalendarDeserializer.class)
 	@JsonSerialize(using = CalendarSerializer.class)
-	@Temporal(TemporalType.TIMESTAMP)
+	@JsonDeserialize(using = CalendarDeserializer.class)
 	private Calendar end;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -63,12 +59,12 @@ public class Campaign extends AbstractEntity{
 		this.end = end;
 	}
 
-	public Team getTeam() {
-		return team;
+	public Long getIdTeam() {
+		return idTeam;
 	}
 
-	public void setTeam(Team team) {
-		this.team = team;
+	public void setIdTeam(Long idTeam) {
+		this.idTeam = idTeam;
 	}
 
 	public void plusDayToEndDate() {
@@ -78,7 +74,7 @@ public class Campaign extends AbstractEntity{
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return "Campaign [name=" + name + ", team=" + team + ", start=" + sdf.format(start.getTime()) + ", end=" + sdf.format(end.getTime()) + "]";
+		return "Campaign [name=" + name + ", idTeam=" + idTeam + ", start=" + sdf.format(start.getTime()) + ", end=" + sdf.format(end.getTime()) + "]";
 	}
 	
 }

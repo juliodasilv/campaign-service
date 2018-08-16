@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.avaliacao.model.User;
+import br.com.avaliacao.model.Customer;
 import br.com.avaliacao.service.FanService;
 
 @RestController
@@ -18,11 +18,11 @@ import br.com.avaliacao.service.FanService;
 public class FanController {
 
 	@Autowired
-	private FanService userService;
+	private FanService fanService;
 
-	@PostMapping(path="users")
-	public ResponseEntity<?> saveUser(@Valid @RequestBody User user){
-		return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
+	@PostMapping(path="customers")
+	public ResponseEntity<?> saveCustomer(@Valid @RequestBody Customer customer){
+		return new ResponseEntity<>(fanService.saveCustomer(customer), HttpStatus.CREATED);
 	}
 
 }

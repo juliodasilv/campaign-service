@@ -1,76 +1,62 @@
 package br.com.avaliacao.service;
 
-import java.nio.charset.Charset;
 import java.util.List;
 
-import org.apache.tomcat.util.codec.binary.Base64;
+import org.assertj.core.util.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.ResourceAccessException;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
+import br.com.avaliacao.client.CampaignClient;
+import br.com.avaliacao.dto.CampaignDTO;
 import br.com.avaliacao.error.ResourceNotFoundException;
-import br.com.avaliacao.error.UserAlreadyAddedException;
-import br.com.avaliacao.model.Campaign;
+import br.com.avaliacao.model.Customer;
 import br.com.avaliacao.model.Team;
-import br.com.avaliacao.model.User;
+import br.com.avaliacao.repository.CustomerRepository;
 import br.com.avaliacao.repository.TeamRepository;
-import br.com.avaliacao.repository.UserRepository;
 
 @Service
 public class FanService {
 
 	@Autowired
-	private UserRepository userDAO;
+	private CustomerRepository customerDAO;
 
 	@Autowired
 	private TeamRepository teamDAO;
 
-	public User saveUser(User user) {
-		//Verifica se o usuario ja existe pelo email
-		if(userDAO.findByEmail(user.getEmail()) != null){
-			RestTemplate restTemplate = new RestTemplate();
-	        ResponseEntity<List<Campaign>> response = restTemplate.exchange("http://localhost:8081/v1/campaigns", HttpMethod.GET, new HttpEntity<List<Campaign>>(createHeaders("admin", "admin")), new ParameterizedTypeReference<List<Campaign>>(){
-	        });
-	    	ObjectMapper objectMapper = new ObjectMapper();
-	    	//Set pretty printing of json
-	    	objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-	        
-			try {
-				throw new UserAlreadyAddedException("User already added!", objectMapper.writeValueAsString(response.getBody()));
-			} catch (JsonProcessingException e) {
-				throw new UserAlreadyAddedException("User already added!", e.getMessage());
+	@Autowired
+	private CampaignClient client;
+
+	public Customer saveCustomer(Customer customer) {
+		// Verifica se o usuario ja existe pelo email
+		if (customerDAO.findByEmail(customer.getEmail()) != null) {
+			// Retorna todas as campanhas associadas ao cliente
+			List<CampaignDTO> campaigns = client.findAllCampaignsByIdUser(customer.getId());
+			if (!campaigns.isEmpty()) {
+				customer.setCampaigns(Lists.newArrayList());
 			}
 		}
-		
-		//Verifica se o time existe, caso contrario lanca excecao
-		Team team = teamDAO.findByNameIgnoreCase(user.getTeam().getName());
-		if(team==null){
+
+		// Verifica se o time existe, caso contrario lanca excecao
+		Team team = teamDAO.findByNameIgnoreCase(customer.getTeam().getName());
+		if (team == null) {
 			throw new ResourceNotFoundException("Team not found!");
-		}else
-			user.setTeam(team);
+		} else
+			customer.setTeam(team);
+
+		// persiste o usuario
+		customer = customerDAO.save(customer);
+		Long customerId = customer.getId();
 		
-		//persiste o usuario
-		user = userDAO.save(user);
-		return user; 
-	}
-	
-	@SuppressWarnings("serial")
-	private static HttpHeaders createHeaders(String username, String password){
-		   return new HttpHeaders() {{
-		         String auth = username + ":" + password;
-		         byte[] encodedAuth = Base64.encodeBase64( 
-		            auth.getBytes(Charset.forName("US-ASCII")) );
-		         String authHeader = "Basic " + new String( encodedAuth );
-		         set( "Authorization", authHeader );
-		      }};
+		// adiciona as campanhas do cliente
+		try {
+			customer.getCampaigns().forEach(campaign -> {
+				campaign.setIdTeam(team.getId());
+				client.addCampaign(customerId, campaign);	
+			});
+		} catch (ResourceAccessException e) {
+			// se o servico de campainhas estiver fora do ar não faz nada
 		}
+		return customer;
+	}
 }

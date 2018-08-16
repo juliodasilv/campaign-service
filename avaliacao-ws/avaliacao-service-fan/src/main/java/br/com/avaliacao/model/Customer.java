@@ -3,15 +3,14 @@ package br.com.avaliacao.model;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
@@ -22,9 +21,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.deser.std.DateDeserializers.CalendarDeserializer;
 
 import br.com.avaliacao.CalendarSerializer;
+import br.com.avaliacao.dto.CampaignDTO;
 
 @Entity
-public class User extends AbstractEntity {
+public class Customer extends AbstractEntity {
 
 	private static final long serialVersionUID = 5215661112014554477L;
 
@@ -45,12 +45,9 @@ public class User extends AbstractEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_team")
     private Team team;
-	
-	@OneToMany(
-	        cascade = CascadeType.ALL, 
-	        orphanRemoval = true
-	    )
-	private List<Campaign> campaigns;
+
+	@Transient
+	private List<CampaignDTO> campaigns;
 
 	public String getName() {
 		return name;
@@ -83,4 +80,14 @@ public class User extends AbstractEntity {
 	public void setTeam(Team team) {
 		this.team = team;
 	}
+
+	public List<CampaignDTO> getCampaigns() {
+		return campaigns;
+	}
+
+	public void setCampaigns(List<CampaignDTO> campaigns) {
+		this.campaigns = campaigns;
+	}
+	
+	
 }

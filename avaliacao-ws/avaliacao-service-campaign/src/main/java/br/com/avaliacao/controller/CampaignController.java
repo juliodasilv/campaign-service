@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,31 +27,36 @@ public class CampaignController {
 	@Autowired
 	private CampaignService campaignService;
 	
-	@GetMapping(path="campaigns")
+	@GetMapping(path="campaigns", produces={MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<?> listAll(Pageable pageable){
 		return new ResponseEntity<>(campaignService.findAllCampaign(pageable), HttpStatus.OK);
 	}
 
-	@PostMapping(path="campaigns")
-	public ResponseEntity<?> save(@Valid @RequestBody Campaign campaign){
-		return new ResponseEntity<>(campaignService.save(campaign), HttpStatus.CREATED);
+	@GetMapping(path="campaigns/customer/{idcustomer}", produces={MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<?> listAll(@PathVariable("idcustomer") Long idCustomer){
+		return new ResponseEntity<>(campaignService.findAllCampaignByIdCustomer(idCustomer), HttpStatus.OK);
 	}
 
-	@DeleteMapping(path="campaigns/{nome}")
+	@PostMapping(path="campaigns/{idCustomer}", consumes={MediaType.APPLICATION_JSON_VALUE}, produces={MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<?> save(@PathVariable("idCustomer") Long idCustomer, @Valid @RequestBody Campaign campaign){
+		return new ResponseEntity<>(campaignService.save(idCustomer, campaign), HttpStatus.CREATED);
+	}
+
+	@DeleteMapping(path="admin/campaigns/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id){
 		verifyIfCampaignExists(campaignService.findOne(id), id);
 		campaignService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@PutMapping(path="campaigns")
-	public ResponseEntity<?> update(@RequestBody Campaign campaign){
+	@PutMapping(path="campaigns", consumes={MediaType.APPLICATION_JSON_VALUE}, produces={MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<?> update(@PathVariable("idCustomer") Long idCustomer, @RequestBody Campaign campaign){
 		verifyIfCampaignExists(campaignService.findOne(campaign.getId()), campaign.getId());
-		campaignService.save(campaign);
+		campaignService.save(idCustomer, campaign);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@GetMapping(path="campaigns/findByName/{name}")
+	@GetMapping(path="campaigns/findByName/{name}", produces={MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<?> findByName(@PathVariable("name") String name) {
 		return new ResponseEntity<>(campaignService.findByNameIgnoreCaseContaining(name), HttpStatus.OK);
 	}

@@ -28,7 +28,9 @@ public class Campaign extends AbstractEntity{
 	@Column(unique = true)
 	private String name;
 
-	private int idTeam;
+	private Long idTeam;
+
+	private Long idCustomer;
 
 	@NotNull
 	@JsonSerialize(using = CalendarSerializer.class)
@@ -66,16 +68,24 @@ public class Campaign extends AbstractEntity{
 		this.end = end;
 	}
 
-	public int getIdTeam() {
+	public void plusDayToEndDate() {
+		end.add(Calendar.DATE, 1);
+	}
+
+	public Long getIdTeam() {
 		return idTeam;
 	}
 
-	public void setIdTeam(int idTeam) {
+	public void setIdTeam(Long idTeam) {
 		this.idTeam = idTeam;
 	}
 
-	public void plusDayToEndDate() {
-		end.add(Calendar.DATE, 1);
+	public Long getIdCustomer() {
+		return idCustomer;
+	}
+
+	public void setIdCustomer(Long idCustomer) {
+		this.idCustomer = idCustomer;
 	}
 
 	@Override
