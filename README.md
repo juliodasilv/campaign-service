@@ -30,6 +30,59 @@ Para acesso aos dados, utilizei o spring-data.
 - Importar o projeto no eclipse
 - Ter instalado a versão 8 do java.
 
+### Exemplo de utilização
+Utilizando o postman, fazer uma requisição POST na URI http://localhost:8082/v1/customers
+passando os seguintes dados de autorização.
+  - authorization: basic auth
+  - username: admin
+  - password: admin
+  
+  No corpo da requisição passar um json como o exemplo abaixo:
+  {  
+   "name":"Júlio",
+   "email":"juliodasilv@hotmail.com",
+   "birth":"1985-10-22",
+   "team":{  
+      "name":"palmeiras"
+   },
+   "campaigns":[  
+    {
+        "name": "campanha44",
+        "start": "2018-10-01",
+        "end": "2018-10-04"
+    },
+    {
+        "name": "campanha47",
+        "start": "2018-10-01",
+        "end": "2018-10-05"
+    }
+   ]
+  }	
+ 
+ A resposta vem do serviço de cadastro de campainha com http status igual a 201 (CREATED):
+ {
+    "name": "Júlio",
+    "email": "juliodasilv@hotmail.com",
+    "birth": "1985-10-22",
+    "team": {
+        "name": "PALMEIRAS"
+    },
+    "campaigns": [
+        {
+            "name": "campanha44",
+            "idTeam": 1,
+            "start": "2018-10-01",
+            "end": "2018-10-04"
+        },
+        {
+            "name": "campanha47",
+            "idTeam": 1,
+            "start": "2018-10-01",
+            "end": "2018-10-05"
+        }
+    ]
+  } 
+
 ## Diagrama de Arquitetura
 ![alt tag](https://raw.githubusercontent.com/juliodasilv/campaign-service/master/files/architecture_diagram.jpg)
 
