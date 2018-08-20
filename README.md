@@ -38,51 +38,55 @@ passando os seguintes dados de autorização.
   - password: admin
   
   No corpo da requisição passar um json como o exemplo abaixo:<br/>
-  {  <br/>
-   &nbsp;"name":"Júlio",<br/>
-   &nbsp;"email":"juliodasilv@hotmail.com",<br/>
-   &nbsp;"birth":"1985-10-22",<br/>
-   &nbsp;"team":{  <br/>
-      &nbsp;&nbsp;&nbsp;"name":"palmeiras"<br/>
-   },<br/>
-   &nbsp;"campaigns":[  <br/>
-    &nbsp;&nbsp;{<br/>
-        &nbsp;&nbsp;&nbsp;"name": "campanha44",<br/>
-        &nbsp;&nbsp;&nbsp;"start": "2018-10-01",<br/>
-        &nbsp;&nbsp;&nbsp;"end": "2018-10-04"<br/>
-    &nbsp;},<br/>
-    &nbsp;{<br/>
-        &nbsp;&nbsp;&nbsp;"name": "campanha47",<br/>
-        &nbsp;&nbsp;&nbsp;"start": "2018-10-01",<br/>
-        &nbsp;&nbsp;&nbsp;"end": "2018-10-05"<br/>
-    &nbsp;&nbsp;}<br/>
-   &nbsp;]<br/>
-  }	<br/>
+  ```json
+  {  
+   "name":"Júlio",
+   "email":"juliodasilv@hotmail.com",
+   "birth":"1985-10-22",
+   "team":{  
+      "name":"palmeiras"
+   },
+   "campaigns":[  
+    {
+        "name": "campanha44",
+        "start": "2018-10-01",
+        "end": "2018-10-04"
+    },
+    {
+        "name": "campanha47",
+        "start": "2018-10-01",
+        "end": "2018-10-05"
+    }
+   ]
+  }	
+  ```
+ A resposta vem do serviço de cadastro de campainha com http status igual a 201 (CREATED):
  
- A resposta vem do serviço de cadastro de campainha com http status igual a 201 (CREATED):<br/>
- {<br/>
-   &nbsp; "name": "Júlio",<br/>
-    &nbsp;"email": "juliodasilv@hotmail.com",<br/>
-    &nbsp;"birth": "1985-10-22",<br/>
-    &nbsp;"team": {<br/>
-        &nbsp;&nbsp;"name": "PALMEIRAS"<br/>
-    &nbsp;},<br/>
-    &nbsp;"campaigns": [<br/>
-        &nbsp;{<br/>
-            &nbsp;&nbsp;"name": "campanha44",<br/>
-            &nbsp;&nbsp;"idTeam": 1,<br/>
-            &nbsp;&nbsp;"start": "2018-10-01",<br/>
-            &nbsp;&nbsp;"end": "2018-10-04"<br/>
-        &nbsp;},<br/>
-        &nbsp;{<br/>
-            &nbsp;&nbsp;"name": "campanha47",<br/>
-            &nbsp;&nbsp;"idTeam": 1,<br/>
-            &nbsp;&nbsp;"start": "2018-10-01",<br/>
-            &nbsp;&nbsp;"end": "2018-10-05"<br/>
-       &nbsp; &nbsp;}<br/>
-    &nbsp;]<br/>
-  } <br/>
-
+```json
+ {
+    "name": "Júlio",
+    "email": "juliodasilv@hotmail.com",
+    "birth": "1985-10-22",
+    "team": {
+        "name": "PALMEIRAS"
+    },
+    "campaigns": [
+        {
+            "name": "campanha44",
+            "idTeam": 1,
+            "start": "2018-10-01",
+            "end": "2018-10-04"
+        },
+        {
+            "name": "campanha47",
+            "idTeam": 1,
+            "start": "2018-10-01",
+            "end": "2018-10-05"
+        }
+    ]
+  } 
+  ```
+  
 ![alt tag](https://raw.githubusercontent.com/juliodasilv/campaign-service/master/files/architecture_diagram.jpg)
 
 ## Resumo das tecnologias utilizadas
