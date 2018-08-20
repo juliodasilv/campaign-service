@@ -1,6 +1,6 @@
-﻿# campaign-service
+﻿# API para Cadastro de Campanhas
 
-## Getting Started
+## Inicio
 
 O projeto foi dividido em módulos para facilitar a execução e a escalabilidade do desenvolvimento.
 Os módulos são:
@@ -37,51 +37,51 @@ passando os seguintes dados de autorização.
   - username: admin
   - password: admin
   
-  No corpo da requisição passar um json como o exemplo abaixo:
-  {  
-   "name":"Júlio",
-   "email":"juliodasilv@hotmail.com",
-   "birth":"1985-10-22",
-   "team":{  
-      "name":"palmeiras"
-   },
-   "campaigns":[  
-    {
-        "name": "campanha44",
-        "start": "2018-10-01",
-        "end": "2018-10-04"
-    },
-    {
-        "name": "campanha47",
-        "start": "2018-10-01",
-        "end": "2018-10-05"
-    }
-   ]
-  }	
+  No corpo da requisição passar um json como o exemplo abaixo:<br/>
+  {  <br/>
+   "name":"Júlio",<br/>
+   "email":"juliodasilv@hotmail.com",<br/>
+   "birth":"1985-10-22",<br/>
+   "team":{  <br/>
+      "name":"palmeiras"<br/>
+   },<br/>
+   "campaigns":[  <br/>
+    {<br/>
+        "name": "campanha44",<br/>
+        "start": "2018-10-01",<br/>
+        "end": "2018-10-04"<br/>
+    },<br/>
+    {<br/>
+        "name": "campanha47",<br/>
+        "start": "2018-10-01",<br/>
+        "end": "2018-10-05"<br/>
+    }<br/>
+   ]<br/>
+  }	<br/>
  
- A resposta vem do serviço de cadastro de campainha com http status igual a 201 (CREATED):
- {
-    "name": "Júlio",
-    "email": "juliodasilv@hotmail.com",
-    "birth": "1985-10-22",
-    "team": {
-        "name": "PALMEIRAS"
-    },
-    "campaigns": [
-        {
-            "name": "campanha44",
-            "idTeam": 1,
-            "start": "2018-10-01",
-            "end": "2018-10-04"
-        },
-        {
-            "name": "campanha47",
-            "idTeam": 1,
-            "start": "2018-10-01",
-            "end": "2018-10-05"
-        }
-    ]
-  } 
+ A resposta vem do serviço de cadastro de campainha com http status igual a 201 (CREATED):<br/>
+ {<br/>
+    "name": "Júlio",<br/>
+    "email": "juliodasilv@hotmail.com",<br/>
+    "birth": "1985-10-22",<br/>
+    "team": {<br/>
+        "name": "PALMEIRAS"<br/>
+    },<br/>
+    "campaigns": [<br/>
+        {<br/>
+            "name": "campanha44",<br/>
+            "idTeam": 1,<br/>
+            "start": "2018-10-01",<br/>
+            "end": "2018-10-04"<br/>
+        },<br/>
+        {<br/>
+            "name": "campanha47",<br/>
+            "idTeam": 1,<br/>
+            "start": "2018-10-01",<br/>
+            "end": "2018-10-05"<br/>
+        }<br/>
+    ]<br/>
+  } <br/>
 
 ## Diagrama de Arquitetura
 ![alt tag](https://raw.githubusercontent.com/juliodasilv/campaign-service/master/files/architecture_diagram.jpg)
